@@ -1,0 +1,27 @@
+{
+  "name": "mqtt-as-http",
+  "version": "1.0.0",
+  "description": "make mqtt like http",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mqtt",
+    "http",
+    "request",
+    "response"
+  ],
+  "author": "aokihu@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/nanoid": "^2.1.0",
+    "@types/node": "^13.9.5",
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1",
+    "mqtt": "^3.0.0"
+  },
+  "dependencies": {
+    "nanoid": "^3.0.2"
+  }
+}
