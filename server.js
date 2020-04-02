@@ -1,7 +1,7 @@
 /**
  * 测试用例
  */
-const {Server} = require('./build/index').default;
+const {Server} = require('./build/index');
 const Mqtt = require('mqtt');
 
 const mqtt = Mqtt.connect("mqtt://127.0.0.1");

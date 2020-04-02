@@ -1,5 +1,5 @@
 const Mqtt = require('mqtt');
-const {Client} = require('../build/index').default
+const {Client} = require('../build/index')
 const expect = require('chai').expect;
 
 const mqtt = Mqtt.connect("mqtt://127.0.0.1")
