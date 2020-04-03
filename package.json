@@ -1,6 +1,6 @@
 {
   "name": "mqtt-as-http",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "make mqtt like http",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,5 +25,9 @@
   },
   "dependencies": {
     "nanoid": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aokihu/mqtt-as-http"
   }
 }
