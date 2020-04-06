@@ -40,10 +40,7 @@ export default class Server extends BaseHttp {
   }
 
   private _handleRequest(topic:string, payload: Buffer) {
-    // const idx = topic.search("@request");
     const result = Server.RequestRegexp.exec(topic);
-    console.log(topic)
-    console.log(result);
     if(result) {
       const _uuid = result[2];
       const method = result[1] as RequestMethods;
@@ -59,7 +56,7 @@ export default class Server extends BaseHttp {
 
       const responseTopic = this._makeResponseTopic(_topic, method,_uuid)
       const responsePayload = JSON.stringify(_payload);
-      this._mqtt?.publish(responseTopic, responsePayload);
+      this._mqtt?.publish(responseTopic, responsePayload, {qos:0});
     }
   }
 
