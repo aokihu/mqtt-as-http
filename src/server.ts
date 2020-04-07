@@ -39,7 +39,7 @@ export default class Server extends BaseHttp {
     this.route("DELETE", topic, callback);
   }
 
-  private _handleRequest(topic:string, payload: Buffer) {
+  private async _handleRequest(topic:string, payload: Buffer) {
     const result = Server.RequestRegexp.exec(topic);
     if(result) {
       const _uuid = result[2];
@@ -50,8 +50,8 @@ export default class Server extends BaseHttp {
       const key = _topic + "@" + method;
       const _callback = this._queue[key];
 
-      const {data} = JSON.parse(payload.toString()) as RequestMessage;
-      const _data = _callback(topic, data);
+      const data = this._validate(payload);
+      const _data = await _callback(topic, data);
       const _payload:ResponseMessage = {data: _data, time: Date.now()};
 
       const responseTopic = this._makeResponseTopic(_topic, method,_uuid)
@@ -68,5 +68,12 @@ export default class Server extends BaseHttp {
   private _makeResponseTopic(topic:string, method:RequestMethods, uuid:string):string {
     const slash = topic.endsWith("/") ? "" : "/";
     return `${topic}${slash}@response/${method}/${uuid}`;
+  }
+
+  private _validate(payload: Buffer): any {
+    const stringPayload = payload.toString();
+    const block = JSON.parse(stringPayload);
+
+    return block.data ? block.data : block;
   }
 }

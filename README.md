@@ -1,5 +1,5 @@
 # mqtt-as-http
-**Version 1.0.8**
+**Version 1.0.11**
 
 The old project [mqtt-request](https://www.npmjs.com/package/mqtt-request) is abandoned, it was designed very bad.
 
@@ -142,3 +142,8 @@ It's very easy to use it like HTTP, but you can't send binary data now, because 
 For reduce the size of module, so I only upload files which is needly. You can find the source code from [this github link](https://github.com/aokihu/mqtt-as-http).
 
 And I would love to hear your improve suggestions.
+
+
+## Change Log
+
+**1.0.11** Remove debug information output.

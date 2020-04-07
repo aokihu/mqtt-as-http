@@ -1,6 +1,6 @@
 {
   "name": "mqtt-as-http",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "description": "make mqtt like http",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

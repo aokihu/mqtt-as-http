@@ -22,9 +22,13 @@ export default class Client extends BaseHttp {
 
   constructor(mqtt:MqttClient) {
     super(mqtt);
-    this._nanoid = customAlphabet(Client.alphabetOfNanoid, Client.lengthOfNanoid);
-    this._mqtt?.on('message', this._handleResponse.bind(this));
-    setInterval(this._clearExpireItem.bind(this), Client.timeout * 2);
+    try {
+      this._nanoid = customAlphabet(Client.alphabetOfNanoid, Client.lengthOfNanoid);
+      this._mqtt?.on('message', this._handleResponse.bind(this));
+      setInterval(this._clearExpireItem.bind(this), Client.timeout * 2);
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
@@ -38,15 +42,19 @@ export default class Client extends BaseHttp {
     const expires = Date.now() + Client.timeout;
     const responseTopic = this._makeResponseTopic(topic,method, uuid);
     const requestTopic = this._makeRequestTopic(topic, method, uuid);
-    this._mqtt?.subscribe(responseTopic);
 
-    const payload = this._makeRequestMessage(method, body);
-    this._mqtt?.publish(requestTopic, JSON.stringify(payload), {qos:0});
-
-    return new Promise((resolve, reject) => {
-      const item: RequestQueueItem = {uuid, expires, reject, resolve, topic:responseTopic};
-      this._queue.push(item);
-    });
+    try {
+      this._mqtt?.subscribe(responseTopic);
+      const payload = this._makeRequestMessage(method, body);
+      this._mqtt?.publish(requestTopic, JSON.stringify(payload), {qos:0});
+    }
+    catch(error) {throw error}
+    finally {
+      return new Promise((resolve, reject) => {
+        const item: RequestQueueItem = {uuid, expires, reject, resolve, topic:responseTopic};
+        this._queue.push(item);
+      });
+    }
   }
 
   public get(topic:string, body?: any): Promise<any> {return this.request("GET", topic, body);}
@@ -64,6 +72,8 @@ export default class Client extends BaseHttp {
       const [{expires, resolve, reject}] = this._queue.splice(idx, 1); // remove this request from queue
       this._mqtt?.unsubscribe(topic);
       expires > Date.now() ? resolve(responseMessage) : reject('expires is timeout');
+    } else {
+      throw(new Error("event is not register"));
     }
   }
 
