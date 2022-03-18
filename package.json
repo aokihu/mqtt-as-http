@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "prepublish": "tsc",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "yarn test"
   },
   "keywords": [
     "mqtt",
@@ -20,7 +20,7 @@
     "@types/nanoid": "^2.1.0",
     "@types/node": "^13.9.5",
     "chai": "^4.2.0",
-    "mocha": "^7.1.1",
+    "mocha": "^9.2.2",
     "mqtt": "^3.0.0"
   },
   "dependencies": {
