@@ -6,7 +6,7 @@
   "types": "types/index.d.ts",
   "prepublish": "tsc",
   "scripts": {
-    "build" "tsc",
+    "build": "tsc",
     "test": "npx mocha"
   },
   "keywords": [
@@ -18,17 +18,14 @@
   "author": "aokihu@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "@types/nanoid": "^2.1.0",
     "@types/node": "^13.9.5",
     "chai": "^4.2.0",
     "mocha": "^9.2.2",
     "mqtt": "^3.0.0"
   },
-  "dependencies": {
-    "nanoid": "^3.0.2"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/aokihu/mqtt-as-http"
-  },
+  }
 }
