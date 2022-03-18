@@ -1,4 +1,4 @@
-import BaseHttp, { ResponseMessage, RequestMessage, RequestMethods } from './base';
+import BaseHttp, { ResponseMessage, RequestMessage, } from './base';
 import { MqttClient } from 'mqtt';
 
 export type ResponseQueueItem = {
@@ -24,19 +24,19 @@ export default class Server extends BaseHttp {
   }
 
   public get(topic:string, callback:(topic: string, data?:any) => any) {
-    this.route("GET", topic, callback);
+    this.route(RequestMethods.GET, topic, callback);
   }
 
   public post(topic:string, callback:(topic: string, data?:any) => any) {
-    this.route("POST", topic, callback);
+    this.route(RequestMethods.POST, topic, callback);
   }
 
   public put(topic:string, callback:(topic: string, data?:any) => any) {
-    this.route("PUT", topic, callback);
+    this.route(RequestMethods.PUT, topic, callback);
   }
 
   public del(topic:string, callback:(topic: string, data?:any) => any) {
-    this.route("DELETE", topic, callback);
+    this.route(RequestMethods.DELETE, topic, callback);
   }
 
   private async _handleRequest(topic:string, payload: Buffer) {

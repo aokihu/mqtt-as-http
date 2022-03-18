@@ -1,4 +1,4 @@
-import BaseHttp, { RequestMessage, RequestMethods, ResponseMessage } from './base'
+import BaseHttp, { RequestMessage,  ResponseMessage } from './base'
 import {fmid} from 'utils'
 import { MqttClient } from 'mqtt';
 
@@ -45,10 +45,10 @@ export default class Client extends BaseHttp {
     }
   }
 
-  public get(topic:string, body?: any): Promise<any> {return this.request("GET", topic, body);}
-  public post(topic:string, body: any): Promise<any> {return this.request("POST", topic, body)}
-  public put(topic:string, body: any): Promise<any> {return this.request("PUT", topic, body)}
-  public del(topic:string, body?: any): Promise<any> {return this.request("DELETE", topic, body)}
+  public get(topic:string, body?: any): Promise<any> {return this.request(RequestMethods.GET, topic, body);}
+  public post(topic:string, body: any): Promise<any> {return this.request(RequestMethods.POST, topic, body)}
+  public put(topic:string, body: any): Promise<any> {return this.request(RequestMethods.PUT, topic, body)}
+  public del(topic:string, body?: any): Promise<any> {return this.request(RequestMethods.DELETE, topic, body)}
 
   private _handleResponse(topic:string, payload:Buffer) {
     const responseMessage:ResponseMessage = JSON.parse(payload.toString()) as ResponseMessage;

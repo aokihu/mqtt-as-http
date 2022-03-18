@@ -1,6 +1,26 @@
 /* ---------------------------------- */
-/*       MQTT-AS-HTTP Interface       */
+/*    MQTT-AS-HTTP Base Interfaces    */
 /* ---------------------------------- */
+
+/* ---------------------------------- */
+/*   MQTT-AS-HTTP Request Interface   */
+/* ---------------------------------- */
+
+/**
+ * Request methods enum
+ * @member GET get method
+ * @member POST post method
+ * @member PUT put method
+ * @member DELETE delete method
+ * @member DEL delete method
+ */
+declare const enum RequestMethods {
+    GET = "GET",
+    POST = "POST",
+    PUT = "PUT",
+    DELETE = "DELETE",
+    DEL = "DELETE",
+}
 
 /**
  * Response message type

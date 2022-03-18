@@ -6,7 +6,6 @@ export type ResponseMessage = {
   data: any,
 }
 
-export type RequestMethods = "GET" | "POST" | "PUT" | "DELETE";
 
 export type RequestMessage = {
   data: any
