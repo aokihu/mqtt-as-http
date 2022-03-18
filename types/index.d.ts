@@ -2,6 +2,12 @@
 /*    MQTT-AS-HTTP Base Interfaces    */
 /* ---------------------------------- */
 
+declare const enum BaseHttpTopicFlow {
+    REQUEST = 'req',
+    RESPONSE = 'res'
+}
+
+
 /* ---------------------------------- */
 /*   MQTT-AS-HTTP Request Interface   */
 /* ---------------------------------- */
@@ -14,13 +20,7 @@
  * @member DELETE delete method
  * @member DEL delete method
  */
-declare const enum RequestMethods {
-    GET = "GET",
-    POST = "POST",
-    PUT = "PUT",
-    DELETE = "DELETE",
-    DEL = "DELETE",
-}
+declare type RequestMethods = "GET" | "POST" | "PUT" | "DELETE" | "DEL"
 
 /**
  * Response message type
@@ -29,7 +29,7 @@ declare const enum RequestMethods {
  */
 declare interface ResponseMessage {
     time: number
-    data: unknown
+    data?: unknown
 }
 
 /**
@@ -38,8 +38,8 @@ declare interface ResponseMessage {
  * @property data
  */
 declare interface RequestMessage {
-    time: number
-    data: unknown
+    time?: number
+    data?: unknown
 }
 
 /**
@@ -53,12 +53,10 @@ declare interface RequestMessage {
 declare interface RequestQueueItem {
     uuid: string
     expires: number
-    resolve: (param?: any) => void
+    resolve: <T>(value: T | PromiseLike<T>) => void
     reject: (reason?: any) => void
     topic: string
 }
-
-
 
 
 /* ---------------------------------- */
