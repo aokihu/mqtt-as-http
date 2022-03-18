@@ -25,7 +25,7 @@ export default class Client extends BaseHttp {
    * @param topic Request resource name
    * @param body Attatch payload data
    */
-  public request(method: RequestMethods, topic:string, body: any): Promise<any> {
+  public request<T=any>(method: RequestMethods, topic:string, body: any): Promise<T> {
     const uuid = this._nanoid();
     const expires = Date.now() + Client.timeout;
     const responseTopic = this._makeResponseTopic(topic,method, uuid);
