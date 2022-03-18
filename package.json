@@ -1,11 +1,12 @@
 {
   "name": "mqtt-as-http",
-  "version": "1.0.12",
-  "description": "make mqtt like http",
+  "version": "2.0.0",
+  "description": "this module make mqtt like http, you can request and wait response from any mqtt node",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "prepublish": "tsc",
   "scripts": {
+    "build" "tsc",
     "test": "npx mocha"
   },
   "keywords": [
