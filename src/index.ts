@@ -1,5 +1,6 @@
 /**
  * MQTT AS HTTP
+ * @license MIT
  */
 
 import Client from './client'
