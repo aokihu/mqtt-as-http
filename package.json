@@ -3,7 +3,7 @@
   "version": "1.0.12",
   "description": "make mqtt like http",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "prepublish": "tsc",
   "scripts": {
     "test": "npx mocha"
@@ -29,5 +29,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/aokihu/mqtt-as-http"
-  }
+  },
 }

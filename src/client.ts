@@ -1,29 +1,17 @@
 import BaseHttp, { RequestMessage, RequestMethods, ResponseMessage } from './base'
-import {customAlphabet} from 'nanoid';
+import {fmid} from 'utils'
 import { MqttClient } from 'mqtt';
-
-/**
- * Request queue item definition
- */
-export type RequestQueueItem = {
-  uuid:string,
-  expires:number,
-  resolve: Function,
-  reject: Function
-  topic: string
-}
 
 export default class Client extends BaseHttp {
   static timeout = 500; // Timeout for request wait
-  static lengthOfNanoid = 6;
-  static alphabetOfNanoid = '0123456789abcdefABCDEFG';
+  static lengthOfNanoid = 8;
   private _queue:RequestQueueItem[] = Array<RequestQueueItem>();
   private _nanoid:Function;
 
   constructor(mqtt:MqttClient) {
     super(mqtt);
     try {
-      this._nanoid = customAlphabet(Client.alphabetOfNanoid, Client.lengthOfNanoid);
+      this._nanoid = () => fmid(Client.lengthOfNanoid);
       this._mqtt?.on('message', this._handleResponse.bind(this));
       setInterval(this._clearExpireItem.bind(this), Client.timeout * 2);
     } catch (error) {
