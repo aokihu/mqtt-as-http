@@ -1,3 +1,6 @@
+/* ---------------------------------- */
+/*       MQTT-AS-HTTP Interface       */
+/* ---------------------------------- */
 
 /**
  * Response message type
@@ -33,4 +36,41 @@ declare interface RequestQueueItem {
     resolve: (param?: any) => void
     reject: (reason?: any) => void
     topic: string
+}
+
+
+
+
+/* ---------------------------------- */
+/*            MQTT Interfce           */
+/* ---------------------------------- */
+
+declare type MqttOptionQos = 0 | 1 | 2
+declare type MqttOptionTopic = string
+declare type MqttOptionTopics = MqttOptionTopic[]
+
+declare interface MqttOptionTopicObject {
+    [key: string]: {
+        qos: MqttOptionQos
+    }
+}
+
+declare interface MqttSubscribeOptions {
+    qos: MqttOptionQos
+}
+
+declare interface MqttSubscribeCallback {
+    (err: string, granted?: {topic: MqttOptionTopic, qos: MqttOptionQos}[]): void
+}
+
+declare interface MqttUnsubscribeCallback {
+    (err: string): void
+}
+
+/**
+ * MQTT Client class interface
+ */
+declare interface MqttAdapter {
+    subscribe: (topic: MqttOptionTopic | MqttOptionTopic| MqttOptionTopicObject, options?: MqttSubscribeOptions, callback? :MqttSubscribeCallback) => void
+    unsubscribe: (topic: MqttOptionTopic | MqttOptionTopics, options?: any, callback?: MqttUnsubscribeCallback) => void
 }
