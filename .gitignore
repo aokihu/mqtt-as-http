@@ -104,3 +104,6 @@ dist
 .tern-port
 
 package-lock.json
+
+# Mac OS DS_Store
+.DS_Store
