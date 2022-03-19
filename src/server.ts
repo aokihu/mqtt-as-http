@@ -67,21 +67,26 @@ export default class Server extends BaseHttp {
   /*           Private methods          */
   /* ---------------------------------- */
 
+  /**
+   * Process incoming message
+   * @param topic subscribled topic
+   * @param payload any data
+   */
   private async _handleRequest(topic: string, payload: Buffer) {
     const result = Server.REQUEST_REGEXP.exec(topic);
     if (result) {
       const _topic = result[1]
-      const method = result[2] as RequestMethods;
+      const _method = result[2] as RequestMethods;
       const _uuid = result[3];
 
-      const key = _topic + "@" + method;
-      const _callback = this._queue[key];
+      const _key = `${_topic}@${_method}`;
+      const _callback = this._queue[_key];
 
       const data = this._validate(payload);
       const _data = await _callback(topic, data);
       const _payload: ResponseMessage = { data: _data, time: Date.now() };
 
-      const responseTopic = this._makeResponseTopic(_topic, method, _uuid);
+      const responseTopic = this._makeResponseTopic(_topic, _method, _uuid);
       const responsePayload = JSON.stringify(_payload);
       this._mqtt?.publish(responseTopic, responsePayload, { qos: 2 });
     }
