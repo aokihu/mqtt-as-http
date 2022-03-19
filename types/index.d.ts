@@ -99,3 +99,25 @@ declare interface MqttAdapter {
     subscribe: (topic: MqttOptionTopic | MqttOptionTopic| MqttOptionTopicObject, options?: MqttSubscribeOptions, callback? :MqttSubscribeCallback) => void
     unsubscribe: (topic: MqttOptionTopic | MqttOptionTopics, options?: any, callback?: MqttUnsubscribeCallback) => void
 }
+
+
+/* ---------------------------------- */
+/*          Server Interfaces         */
+/* ---------------------------------- */
+
+/**
+ * Options for server constructor
+ */
+declare interface ServerOptions {
+    qos?: MqttOptionQos,
+}
+
+
+/* ---------------------------------- */
+/*          Client Interfaces         */
+/* ---------------------------------- */
+
+declare interface ClientOptions {
+    qos?: MqttOptionQos,
+    timeout?: number
+}
