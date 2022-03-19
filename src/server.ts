@@ -1,6 +1,6 @@
 import BaseHttp from "./base";
 import { MqttClient } from "mqtt";
-import { MQTT_AS_HTTP_REQUEST_PARTTEN } from "./constant";
+import { MQTT_AS_HTTP_REQUEST_PARTTEN, MQTT_AS_HTTP_SIGN } from "./constant";
 
 export default class Server extends BaseHttp {
 
@@ -19,7 +19,8 @@ export default class Server extends BaseHttp {
   /* ------------- Options ------------ */
   
   private _options:Partial<ServerOptions> = {
-    qos: 0
+    qos: 0,
+    sign: MQTT_AS_HTTP_SIGN
   }
 
   /**
@@ -103,7 +104,7 @@ export default class Server extends BaseHttp {
    */
   private _makeRequestedTopic(topic: string, method: RequestMethods): string {
     const slash = topic.endsWith("/") ? "" : "/";
-    return `${topic}${slash}@_mqtt_as_http_/req/${method}/#`;
+    return `${topic}${slash}${this._options.sign}/req/${method}/#`;
   }
 
   /**
@@ -119,13 +120,12 @@ export default class Server extends BaseHttp {
     uuid: string
   ): string {
     const slash = topic.endsWith("/") ? "" : "/";
-    return `${topic}${slash}@_mqtt_as_http_/res/${method}/${uuid}`;
+    return `${topic}${slash}${this._options.sign}/res/${method}/${uuid}`;
   }
 
   private _validate(payload: Buffer): any {
     const stringPayload = payload.toString();
     const block = JSON.parse(stringPayload);
-
     return block.data ? block.data : block;
   }
 }
