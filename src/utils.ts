@@ -6,7 +6,7 @@
  * @description some tools for this package
  */
  
- import {randomBytes} from 'crypto'
+ import {randomBytes, Hash} from 'crypto'
  
 /**
  * @function fmid
@@ -21,4 +21,15 @@ export const fmid = (length: number):string => {
         _rand[i] = _now[i] + _rand[i]
     }
     return _rand.toString("hex").substring(0, length)
+}
+
+
+/**
+ * Generate key from topic and method
+ * @param topic any topic string
+ * @param method request method name
+ */
+export const getQueueKey = (topic: string, method: string): Symbol => {
+    const _k = `${topic}@${method}`;
+    return Symbol(_k)
 }
