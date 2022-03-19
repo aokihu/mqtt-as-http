@@ -87,11 +87,24 @@ export default class Server extends BaseHttp {
     }
   }
 
+  /**
+   * Generate full topic for subscribing
+   * @param topic topic string
+   * @param method method name
+   * @returns full request topic for subscribe
+   */
   private _makeRequestedTopic(topic: string, method: RequestMethods): string {
     const slash = topic.endsWith("/") ? "" : "/";
     return `${topic}${slash}@_mqtt_as_http_/req/${method}/#`;
   }
 
+  /**
+   * Generate full topic for publishing
+   * @param topic topic string
+   * @param method method name
+   * @param uuid incoming message id
+   * @returns full response topic for response
+   */
   private _makeResponseTopic(
     topic: string,
     method: RequestMethods,
