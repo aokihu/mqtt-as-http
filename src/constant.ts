@@ -13,7 +13,7 @@
 /* ---------------------------------- */
 
 
-export const MQTT_AS_HTTP_SIGN = '@_mqtt_as_http'
+export const MQTT_AS_HTTP_SIGN = '@_mqtt_as_http_'
 export const MQTT_AS_HTTP_FLOWS = ["res", "req"]
 export const MQTT_AS_HTTP_METHODS = ["GET","POST","PUT","DELETE"]
 export const FULL_TOPIC_PARTTEN = /(\w)+\/@_mqtt_as_http\/[res|req]\/[GET|POST|PUT|DELETE]\/(\w+)/
