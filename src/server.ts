@@ -42,7 +42,7 @@ export default class Server extends BaseHttp {
     callback: (topic: string, data?: any) => any
   ) {
     const requestedTopic: string = this._makeRequestedTopic(topic, method);
-    const key = topic + "@" + method;
+    const key = `${topic}@${method}`
     this._queue[key] = callback;
     this._mqtt?.subscribe(requestedTopic);
   }
