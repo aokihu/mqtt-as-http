@@ -33,6 +33,13 @@ declare interface ResponseMessage {
 }
 
 /**
+ * Response queue item type
+ */
+declare interface ResponseQueueItem {
+    [topic: string]: (topic: string, data: unknown) => [time:number, data:unknown]
+}
+
+/**
  * Request message type
  * @property time
  * @property data

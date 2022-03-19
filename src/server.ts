@@ -2,10 +2,6 @@ import BaseHttp from "./base";
 import { MqttClient } from "mqtt";
 import { MQTT_AS_HTTP_REQUEST_PARTTEN } from "./constant";
 
-export type ResponseQueueItem = {
-  [topic: string]: (topic: string, data: any) => [number, any];
-};
-
 export default class Server extends BaseHttp {
 
   /* ---------------------------------- */
