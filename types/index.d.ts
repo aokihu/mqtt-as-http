@@ -109,6 +109,7 @@ declare interface MqttAdapter {
  * Options for server constructor
  */
 declare interface ServerOptions {
+    sign?: string,
     qos?: MqttOptionQos,
 }
 
