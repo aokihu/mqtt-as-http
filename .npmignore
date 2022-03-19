@@ -3,3 +3,4 @@ test/
 test.js
 ./server.js
 tsconfig.json
+yarn-error.log
