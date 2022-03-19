@@ -9,6 +9,7 @@
 
 import { EventEmitter } from "events";
 import type { MqttClient } from "mqtt";
+import {MQTT_AS_HTTP_FULL_TOPIC_PARTTEN} from "./constant"
 import {fmid} from './utils'
 
 /**
@@ -20,7 +21,7 @@ export default class BaseHttp extends EventEmitter {
   /*      Static constant variables     */
   /* ---------------------------------- */
 
-  static FULL_TOPIC_PARTTEN = /(\w)+\/@_mqtt_as_http\/[res|req]\/[GET|POST|PUT|DELETE]\/(\w+)/
+  static FULL_TOPIC_PARTTEN = MQTT_AS_HTTP_FULL_TOPIC_PARTTEN
 
   /* ---------------------------------- */
   /*         Protected variables        */

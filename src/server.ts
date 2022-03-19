@@ -1,5 +1,6 @@
 import BaseHttp from "./base";
 import { MqttClient } from "mqtt";
+import { MQTT_AS_HTTP_REQUEST_PARTTEN } from "./constant";
 
 export type ResponseQueueItem = {
   [topic: string]: (topic: string, data: any) => [number, any];
@@ -11,7 +12,7 @@ export default class Server extends BaseHttp {
   /*      static constant variables     */
   /* ---------------------------------- */
 
-  private static REQUEST_REGEXP = /^(\S+)\/@_mqtt_as_http_\/req\/(GET|POST|PUT|DELETE)\/(\S+)$/;
+  private static REQUEST_REGEXP = MQTT_AS_HTTP_REQUEST_PARTTEN;
   
   /* ---------------------------------- */
   /*          Private variables         */
