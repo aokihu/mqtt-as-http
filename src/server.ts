@@ -13,7 +13,14 @@ export default class Server extends BaseHttp {
   /* ---------------------------------- */
   /*          Private variables         */
   /* ---------------------------------- */
+  
   private _queue: ResponseQueueItem = new Object() as ResponseQueueItem;
+  
+  /* ------------- Options ------------ */
+  
+  private _options:Partial<ServerOptions> = {
+    qos: 0
+  }
 
   /**
    * @constructor
@@ -84,7 +91,7 @@ export default class Server extends BaseHttp {
 
       const responseTopic = this._makeResponseTopic(_topic, _method, _uuid);
       const responsePayload = JSON.stringify(_payload);
-      this._mqtt?.publish(responseTopic, responsePayload, { qos: 2 });
+      this._mqtt?.publish(responseTopic, responsePayload, { qos: this._options.qos });
     }
   }
 
