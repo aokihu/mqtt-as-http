@@ -1,5 +1,5 @@
 # mqtt-as-http
-**Version 1.0.11**
+**Version 2.0.0**
 
 The old project [mqtt-request](https://www.npmjs.com/package/mqtt-request) is abandoned, it was designed very bad.
 
@@ -11,8 +11,11 @@ Sometimes when we use MQTT communication protocols, we also want to be able to h
 so that we do not need to use multiple communication protocols.
 
 Therefore, the use of this module will bring the HTTP experience into the MQTT communication, 
-reduce the handling of asynchronous communication back-off operations, simplify communication processing logic
+reduce the handling of asynchronous communication back-off operations, simplify communication processing logic.
 
+Although MQTT v5 have new protocol to support **request** and **response**, older protocol is not supported. Most client are not supported MQTT v5 now.
+
+`mqtt-as-http` is compatible with new and old protocols. You can use MQTT the same way you use HTTP.
 
 ## Install
 You could install the module easily use `npm` or `yarn`, *mqtt* is necessary module, so we also install it.
@@ -28,6 +31,30 @@ Or you can also install with `yarn`
 ```shell
 yarn add mqtt-as-http mqtt
 ```
+
+## How to achieve
+
+When someone *publish* a topic to MQTT broker, `mqtt-as-http` will trap the topic and extra sign data into the raw topic.
+
+```
+RAW TOPIC     = hello/
+                  |
+                  V
+REQUEST TOPIC = hello/@_mqtt_as_http_/req/${method}/${id}
+                      --------------- === --------- =====
+                            ^          ^      ^       ^
+                            |          |      |       |
+                Sign of mqtt-as-http   |      |       |
+                                       |      |       |
+                Request or Response   -+      |       |
+                                              |       |
+                Method like HTTP    ----------+       |
+                                                      |
+                Message id for track   ---------------+
+```
+
+
+
 
 ## How to work
 I've optimized the way modules are used, and now I can handle requests in an HTTP-like way
@@ -145,5 +172,10 @@ And I would love to hear your improve suggestions.
 
 
 ## Change Log
+
+**2.0.0**
+- Update README.md
+- Complete the Typescript declaration file
+- Restructured request and response topic format
 
 **1.0.11** Remove debug information output.
