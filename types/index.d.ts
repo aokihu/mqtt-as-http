@@ -9,7 +9,7 @@ declare const enum BaseHttpTopicFlow {
 
 
 /* ---------------------------------- */
-/*   MQTT-AS-HTTP Request Interface   */
+/*          Request Interfaces        */
 /* ---------------------------------- */
 
 /**
@@ -21,6 +21,42 @@ declare const enum BaseHttpTopicFlow {
  * @member DEL delete method
  */
 declare type RequestMethods = "GET" | "POST" | "PUT" | "DELETE" | "DEL"
+
+/**
+ * Request message type
+ * @property time
+ * @property data
+ */
+ declare interface RequestMessage {
+    time?: number
+    data?: unknown
+}
+
+declare interface RequestRouteCallback {
+    (topic: string, data?: unknown): [time: number, data: unknown]
+}
+
+declare type RequestShortcutParams = [topic: string, callback: RequestRouteCallback]
+
+/**
+ * Request queue item type
+ * @property uuid
+ * @property expires
+ * @property resolve
+ * @property reject
+ * @property topic
+ */
+ declare interface RequestQueueItem {
+    uuid: string
+    expires: number
+    resolve: <T>(value: T | PromiseLike<T>) => void
+    reject: (reason?: any) => void
+    topic: string
+}
+
+/* ---------------------------------- */
+/*         Response Interface         */
+/* ---------------------------------- */
 
 /**
  * Response message type
@@ -39,31 +75,6 @@ declare interface ResponseQueueItem {
     [topic: string]: (topic: string, data: unknown) => [time:number, data:unknown]
 }
 
-/**
- * Request message type
- * @property time
- * @property data
- */
-declare interface RequestMessage {
-    time?: number
-    data?: unknown
-}
-
-/**
- * Request queue item type
- * @property uuid
- * @property expires
- * @property resolve
- * @property reject
- * @property topic
- */
-declare interface RequestQueueItem {
-    uuid: string
-    expires: number
-    resolve: <T>(value: T | PromiseLike<T>) => void
-    reject: (reason?: any) => void
-    topic: string
-}
 
 
 /* ---------------------------------- */
