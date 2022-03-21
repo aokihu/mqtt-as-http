@@ -1,6 +1,6 @@
 {
   "name": "mqtt-as-http",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "this module make mqtt like http, you can request and wait response from any mqtt node",
   "publisher": "aokihu@gmail.com",
   "maintainers": [
