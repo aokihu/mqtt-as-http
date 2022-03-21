@@ -2,6 +2,9 @@ import BaseHttp from "./base";
 import { MqttClient } from "mqtt";
 import { MQTT_AS_HTTP_REQUEST_PARTTEN, MQTT_AS_HTTP_SIGN } from "./constant";
 
+/**
+ * MQTT Server class
+ */
 export default class Server extends BaseHttp {
 
   /* ---------------------------------- */
@@ -43,29 +46,19 @@ export default class Server extends BaseHttp {
   public route(
     method: RequestMethods,
     topic: string,
-    callback: (topic: string, data?: any) => any
+    callback: RequestRouteCallback
   ) {
     const requestedTopic: string = this._makeRequestedTopic(topic, method);
     const key = `${topic}@${method}`
     this._queue[key] = callback;
     this._mqtt?.subscribe(requestedTopic);
+    return this;
   }
 
-  public get(topic: string, callback: (topic: string, data?: any) => any) {
-    this.route("GET", topic, callback);
-  }
-
-  public post(topic: string, callback: (topic: string, data?: any) => any) {
-    this.route("POST", topic, callback);
-  }
-
-  public put(topic: string, callback: (topic: string, data?: any) => any) {
-    this.route("PUT", topic, callback);
-  }
-
-  public del(topic: string, callback: (topic: string, data?: any) => any) {
-    this.route("DELETE", topic, callback);
-  }
+  public get(...args: RequestShortcutParams) {return this.route.apply(this,["GET", ...args])}
+  public post(...args:  RequestShortcutParams) {return this.route.apply(this,["POST", ...args])}
+  public put(...args:  RequestShortcutParams) {return this.route.apply(this,["PUT", ...args])}
+  public del(...args:  RequestShortcutParams) {return this.route.apply(this,["DELETE", ...args])}
 
   /* ---------------------------------- */
   /*           Private methods          */
