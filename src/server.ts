@@ -55,6 +55,9 @@ export default class Server extends BaseHttp {
     return this;
   }
 
+  /**
+   * Shortcut method for route()
+   */
   public get(...args: RequestShortcutParams) {return this.route.apply(this,["GET", ...args])}
   public post(...args:  RequestShortcutParams) {return this.route.apply(this,["POST", ...args])}
   public put(...args:  RequestShortcutParams) {return this.route.apply(this,["PUT", ...args])}

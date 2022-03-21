@@ -29,12 +29,12 @@ describe('Mqtt GET method test', function() {
     
     let param = 0;
     server.get("hello", () => 'world')
-    server.get("hello/world", () => "peace")
-    server.get("param", () => param)
-    server.post("param", (topic, data) => {
+    .get("hello/world", () => "peace")
+    .get("param", () => param)
+    .post("param", (topic, data) => {
       param = data
     })
-    server.del("param", (topic, data) => {
+    .del("param", (topic, data) => {
       param = 0
     })
 
