@@ -10,9 +10,12 @@ const mqtt_server = forkMqtt();
 const client = new Client(mqtt_client);
 const server = new Server(mqtt_server)
 
+/**
+ * Test cases
+ */
 describe('Mqtt GET method test', function() {
 
-  this.timeout(1000)
+  this.timeout(5000)
 
   this.afterAll(function() {
     mqtt_client.end();
