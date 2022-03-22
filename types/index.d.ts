@@ -36,7 +36,16 @@ declare interface RequestRouteCallback {
     (topic: string, data?: unknown): [time: number, data: unknown]
 }
 
+
+/**
+ * @deprecated
+ */
 declare type RequestShortcutParams = [topic: string, callback: RequestRouteCallback]
+
+/**
+ * Shortcut request method param
+ */
+declare type RequestShortcutParam = [topic: string, payload: unknown]
 
 /**
  * Request queue item type

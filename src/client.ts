@@ -68,11 +68,14 @@ export default class Client extends BaseHttp {
       });
     }
   }
-
-  public get(topic:string, body?: any): Promise<any> {return this.request("GET", topic, body);}
-  public post(topic:string, body: any): Promise<any> {return this.request("POST", topic, body)}
-  public put(topic:string, body: any): Promise<any> {return this.request("PUT", topic, body)}
-  public del(topic:string, body?: any): Promise<any> {return this.request("DELETE", topic, body)}
+  
+  /**
+   * Shortcut method for request
+   */
+  public get  = (...args: RequestShortcutParam) => this.request.apply(this, ["GET",...args])
+  public post = (...args: RequestShortcutParam) => this.request.apply(this, ["POST",...args])
+  public put  = (...args: RequestShortcutParam) => this.request.apply(this, ["PUT",...args])
+  public del  = (...args: RequestShortcutParam) => this.request.apply(this, ["DELETE",...args])
 
 
   /* ---------------------------------- */
