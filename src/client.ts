@@ -27,7 +27,6 @@ export default class Client extends BaseHttp {
   
   private _queue: RequestQueueItem[] = Array<RequestQueueItem>();
   private _timeout: number;
-  private _nanoid:Function;
 
   /**
    * @constructor
@@ -38,7 +37,6 @@ export default class Client extends BaseHttp {
     this._timeout = Client.TIMEOUT
 
     try {
-      this._nanoid = () => fmid(8);
       this._mqtt?.on('message', this._handleResponse.bind(this));
       setInterval(this._clearExpireItem.bind(this), this._timeout * 2);
     } catch (error) {
