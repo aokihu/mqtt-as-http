@@ -32,7 +32,7 @@ export default class BaseHttp extends EventEmitter {
   /**
    * Qos
    */
-  protected _qos: number
+  protected _qos: MqttOptionQos
   
   /**
    * Domain sign string 
