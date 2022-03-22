@@ -55,7 +55,7 @@ declare type RequestShortcutParams = [topic: string, callback: RequestRouteCallb
 }
 
 /* ---------------------------------- */
-/*         Response Interface         */
+/*           Server Interface         */
 /* ---------------------------------- */
 
 /**
