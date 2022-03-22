@@ -30,6 +30,11 @@ export default class BaseHttp extends EventEmitter {
   protected _mqtt: MqttClient | undefined;
   
   /**
+   * Qos
+   */
+  protected _qos: number
+  
+  /**
    * Domain sign string 
    * @default "@_mqtt_as_http_"
    * @example 
@@ -62,6 +67,7 @@ export default class BaseHttp extends EventEmitter {
     super();
     this._domain = '@_mqtt_as_http_'
     this._supportMethods = ['GET','POST','PUT','DELETE']
+    this._qos = 0;
     this._mqtt = mqtt;
   }
 
