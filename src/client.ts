@@ -35,7 +35,6 @@ export default class Client extends BaseHttp {
    */
   constructor(mqtt:MqttClient) {
     super(mqtt);
-
     this._timeout = Client.TIMEOUT
 
     try {
@@ -54,7 +53,7 @@ export default class Client extends BaseHttp {
    * @param body Attatch payload data
    */
   public request<T=any>(method: RequestMethods, topic:string, body: any): Promise<T> {
-    const expires = Date.now() + Client.TIMEOUT;
+    const expires = Date.now() + this._timeout;
     const [uuid, requestTopic, responseTopic] = this.generateFullTopic(method, topic)
 
     try {
