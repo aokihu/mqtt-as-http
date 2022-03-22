@@ -11,6 +11,7 @@
   "scripts": {
     "prepublishOnly": "rm -rf ./dist && tsc",
     "build": "tsc",
+    "prepack": "tsc",
     "test": "tsc && npx mocha"
   },
   "keywords": [
