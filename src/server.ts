@@ -1,5 +1,5 @@
 import BaseHttp from "./base";
-import { MqttClient } from "mqtt";
+import type { MqttClient } from "mqtt";
 import { MQTT_AS_HTTP_REQUEST_PARTTEN, MQTT_AS_HTTP_SIGN } from "./constant";
 
 /**
