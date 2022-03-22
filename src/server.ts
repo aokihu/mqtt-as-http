@@ -35,6 +35,9 @@ export default class Server extends BaseHttp {
     this._mqtt?.on("message", this._handleRequest.bind(this));
   }
 
+  /**
+   * @get queue
+   */
   public get queue() {
     return this._queue;
   }
@@ -72,11 +75,9 @@ export default class Server extends BaseHttp {
    * @param payload any data
    */
   private async _handleRequest(topic: string, payload: Buffer) {
-    const result = Server.REQUEST_REGEXP.exec(topic);
+    const result = Server.REQUEST_REGEXP.exec(topic) as unknown as [unknown, string, RequestMethods, string];
     if (result) {
-      const _topic = result[1]
-      const _method = result[2] as RequestMethods;
-      const _uuid = result[3];
+      const [_, _topic, _method, _uuid] = result;
 
       const _key = `${_topic}@${_method}`;
       const _callback = this._queue[_key];
