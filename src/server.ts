@@ -50,7 +50,7 @@ export default class Server extends BaseHttp {
   public route(
     method: RequestMethods,
     topic: string,
-    callback: RequestRouteCallback
+    callback: ResponseRouteCallback
   ) {
     const key = `${topic}@${method}`
     this._queue[key] = callback;
@@ -61,10 +61,10 @@ export default class Server extends BaseHttp {
   /**
    * Shortcut method for route()
    */
-  public get(...args: RequestShortcutParams) {return this.route.apply(this,["GET", ...args])}
-  public post(...args:  RequestShortcutParams) {return this.route.apply(this,["POST", ...args])}
-  public put(...args:  RequestShortcutParams) {return this.route.apply(this,["PUT", ...args])}
-  public del(...args:  RequestShortcutParams) {return this.route.apply(this,["DELETE", ...args])}
+  public get  = (...args: ResponseShortcutParam) => this.route.apply(this,["GET", ...args])
+  public post = (...args: ResponseShortcutParam) => this.route.apply(this,["POST", ...args])
+  public put  = (...args: ResponseShortcutParam) => this.route.apply(this,["PUT", ...args])
+  public del  = (...args: ResponseShortcutParam) => this.route.apply(this,["DELETE", ...args])
 
   /* ---------------------------------- */
   /*           Private methods          */
@@ -84,7 +84,6 @@ export default class Server extends BaseHttp {
 
       const _key = `${_topic}@${_method}`;
       const _callback = this._queue[_key];
-
       const data = this._validate(payload);
       const _data = await _callback(topic, data);
       const _payload: ResponseMessage = { data: _data, time: Date.now() };

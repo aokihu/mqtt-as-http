@@ -32,16 +32,6 @@ declare type RequestMethods = "GET" | "POST" | "PUT" | "DELETE" | "DEL"
     data?: unknown
 }
 
-declare interface RequestRouteCallback {
-    (topic: string, data?: unknown): [time: number, data: unknown]
-}
-
-
-/**
- * @deprecated
- */
-declare type RequestShortcutParams = [topic: string, callback: RequestRouteCallback]
-
 /**
  * Shortcut request method param
  */
@@ -76,6 +66,12 @@ declare interface ResponseMessage {
     time: number
     data?: unknown
 }
+
+declare interface ResponseRouteCallback {
+    (topic: string, data?: unknown): [time: number, data: unknown]
+}
+
+declare type ResponseShortcutParam = [topic: string, callback: ResponseRouteCallback]
 
 /**
  * Response queue item type
