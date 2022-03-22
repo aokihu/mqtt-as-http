@@ -48,10 +48,10 @@ export default class Server extends BaseHttp {
     topic: string,
     callback: RequestRouteCallback
   ) {
-    const requestedTopic: string = this._makeRequestedTopic(topic, method);
+    const _topic: string = this._makeRequestedTopic(topic, method);
     const key = `${topic}@${method}`
     this._queue[key] = callback;
-    this._mqtt?.subscribe(requestedTopic);
+    this._mqtt?.subscribe(_topic);
     return this;
   }
 
