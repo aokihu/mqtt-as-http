@@ -20,7 +20,7 @@ describe('Mqtt GET method test', function() {
   this.afterAll(function() {
     mqtt_client.end();
     mqtt_server.end();
-    process.exit(0);
+    // process.exit(0);
   })
   
   /* Set server */
