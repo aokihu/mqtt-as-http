@@ -56,8 +56,9 @@ export default class Client extends BaseHttp {
 
     try {
       const payload = this._makeRequestMessage(method, body);
+      const _qos = this._qos;
       this._mqtt?.subscribe(responseTopic);
-      this._mqtt?.publish(requestTopic, JSON.stringify(payload), {qos:2});
+      this._mqtt?.publish(requestTopic, JSON.stringify(payload), {qos: _qos});
     }
     catch(error) {throw error}
     finally {
