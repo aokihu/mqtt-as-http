@@ -1,6 +1,7 @@
 import BaseHttp from "./base";
 import type { MqttClient } from "mqtt";
 import { MQTT_AS_HTTP_REQUEST_PARTTEN, MQTT_AS_HTTP_SIGN } from "./constant";
+import {endSlash} from './utils'
 
 /**
  * MQTT Server class
@@ -99,7 +100,7 @@ export default class Server extends BaseHttp {
    * @returns full request topic for subscribe
    */
   private _makeRequestedTopic(topic: string, method: RequestMethods): string {
-    const slash = topic.endsWith("/") ? "" : "/";
+    const slash = endSlash(topic);
     return `${topic}${slash}${this._options.sign}/req/${method}/#`;
   }
 
@@ -115,7 +116,7 @@ export default class Server extends BaseHttp {
     method: RequestMethods,
     uuid: string
   ): string {
-    const slash = topic.endsWith("/") ? "" : "/";
+    const slash = endSlash(topic);
     return `${topic}${slash}${this._options.sign}/res/${method}/${uuid}`;
   }
 

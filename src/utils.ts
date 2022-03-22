@@ -23,6 +23,12 @@ export const fmid = (length: number):string => {
     return _rand.toString("hex").substring(0, length)
 }
 
+/**
+ * Check end of string is slash
+ * @param input string with or without slash
+ * @returns 
+ */
+export const endSlash = (input: string):string => input.endsWith("/") ? "" : "/"
 
 /**
  * Generate key from topic and method
