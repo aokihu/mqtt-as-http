@@ -81,7 +81,8 @@ export default class Client extends BaseHttp {
   /* ---------------------------------- */
 
   private _handleResponse(topic:string, payload:Buffer) {
-    const result = Client.RESPONSE_REGEXP.exec(topic);
+    const regexp = this.generateTopicRegexp('res');
+    const result = regexp.exec(topic);
     
     if(result) {
       const _uuid = result[3]
