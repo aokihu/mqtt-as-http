@@ -76,7 +76,9 @@ export default class Server extends BaseHttp {
    * @param payload any data
    */
   private async _handleRequest(topic: string, payload: Buffer) {
-    const result = Server.REQUEST_REGEXP.exec(topic) as unknown as [unknown, string, RequestMethods, string];
+    const regexp = this.generateTopicRegexp("req")
+    const result = regexp.exec(topic) as unknown as [unknown, string, RequestMethods, string]
+
     if (result) {
       const [_, _topic, _method, _uuid] = result;
 
