@@ -1,9 +1,5 @@
 # mqtt-as-http
-**Version 2.0.0**
-
-The old project [mqtt-request](https://www.npmjs.com/package/mqtt-request) is abandoned, it was designed very bad.
-
-So I start the new project *mqtt-as-http*, it is more like http now.
+**Version 2.0.4**
 
 ## Goal
 
@@ -44,7 +40,7 @@ REQUEST TOPIC = hello/@_mqtt_as_http_/req/${method}/${id}
                       --------------- === --------- =====
                             ^          ^      ^       ^
                             |          |      |       |
-                Sign of mqtt-as-http   |      |       |
+                Domain name for sign   |      |       |
                                        |      |       |
                 Request or Response   -+      |       |
                                               |       |
@@ -62,14 +58,25 @@ I've optimized the way modules are used, and now I can handle requests in an HTT
 ### Server
 
 ```javascript
+/* ------------------------------- */
+/*             Import              */
+/* ------------------------------- */
 
+/* Common JS */
 const Mqtt = require('mqtt') 
 const {Server} = require('mqtt-as-http');
 
-// create new mqtt connect
+/* ES Module or Typescript */
+import { Server } from 'mqtt-as-http'
+
+/* ------------------------------- */
+/*              Usage              */
+/* ------------------------------- */
+
+// Create new mqtt instance object
 const mqtt = Mqtt.connec('mqtt://127.0.0.1');
 
-// For server
+// Create server
 const server = new Server(mqtt);
 
 // Register routes
@@ -93,18 +100,30 @@ server.del('param', (topic, data) => {
 });
 ```
 
-**In fact, whichever method you use is the same, so the design is designed to mimic the HTTP request style as much as possible.**
+**In fact, whatever method you use is the same, so the design is designed to mimic the HTTP request style as much as possible.**
 
 ### Client
 
 ```javascript
-const Mqtt = require('mqtt') 
-const {Client} = require('mqtt-as-http');
+/* ------------------------------- */
+/*             Import              */
+/* ------------------------------- */
 
-// create new mqtt connect
+/* Common JS */
+const Mqtt = require('mqtt') 
+const {Server} = require('mqtt-as-http');
+
+/* ES Module or Typescript */
+import { Server } from 'mqtt-as-http'
+
+/* ------------------------------- */
+/*              Usage              */
+/* ------------------------------- */
+
+// Create new mqtt instance object
 const mqtt = Mqtt.connec('mqtt://127.0.0.1');
 
-// For server
+// Create client
 const client = new Client(mqtt);
 
 // GET
@@ -166,12 +185,14 @@ It's very easy to use it like HTTP, but you can't send binary data now, because 
 
 ## Source
 
-For reduce the size of module, so I only upload files which is needly. You can find the source code from [this github link](https://github.com/aokihu/mqtt-as-http).
+For reduce the size of module, I only upload files which is needly. You can find the source code from [this github link](https://github.com/aokihu/mqtt-as-http).
 
 And I would love to hear your improve suggestions.
 
-
 ## Change Log
+
+**2.0.4**
+- Update README.md
 
 **2.0.0**
 - Update README.md
