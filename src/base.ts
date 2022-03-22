@@ -37,6 +37,18 @@ export default class BaseHttp extends EventEmitter {
    * "@_mqtt_as_http_" is the domain sign string
    */
   protected _domain: string;
+  
+  /**
+   * Request and response support methods
+   * these methods is apart of HTTP methods
+   * I choose 4 methods for most popular
+   * ----------------------------------------
+   * "GET", "POST", "PUT", "DELETE"
+   * ---------------------------------------- 
+   * Actually, the difference is the meaning of methods
+   * 
+   */
+  protected _supportMethods: string[];
 
   /* ---------------------------------- */
   /*          Private functions         */
@@ -48,7 +60,8 @@ export default class BaseHttp extends EventEmitter {
    */
   constructor(mqtt: MqttClient) {
     super();
-    this._domain = "@_mqtt_as_http_"
+    this._domain = '@_mqtt_as_http_'
+    this._supportMethods = ['GET','POST','PUT','DELETE']
     this._mqtt = mqtt;
   }
 
@@ -72,6 +85,15 @@ export default class BaseHttp extends EventEmitter {
     const domain = this._domain
     const topics = ['req','res'].map(m => `${rawTopic}${slash}${domain}/${m}/${method}/${id}`) as [string, string]
     return [id, ...topics]
+  }
+
+  /**
+   * Generate topic regexp partten
+   * @param flow 'res' or 'req'
+   * @returns regexp partten
+   */
+  protected generateTopicRegexp(flow: 'req' | 'res'): RegExp{
+    return new RegExp(`^(\\S+)/${this._domain}/${flow}/(${this._supportMethods.join('|')})/(\\S+)$`)
   }
 }
 
