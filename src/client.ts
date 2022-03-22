@@ -19,7 +19,6 @@ export default class Client extends BaseHttp {
   
   /* Timeout for request wait */
   static TIMEOUT = 30000; 
-  
   static RESPONSE_REGEXP = /^(\S+)\/@_mqtt_as_http_\/res\/(GET|POST|PUT|DELETE)\/(\S+)$/
 
   /* ---------------------------------- */
@@ -27,6 +26,7 @@ export default class Client extends BaseHttp {
   /* ---------------------------------- */
   
   private _queue: RequestQueueItem[] = Array<RequestQueueItem>();
+  private _timeout: number;
   private _nanoid:Function;
 
   /**
@@ -35,10 +35,13 @@ export default class Client extends BaseHttp {
    */
   constructor(mqtt:MqttClient) {
     super(mqtt);
+
+    this._timeout = Client.TIMEOUT
+
     try {
       this._nanoid = () => fmid(8);
       this._mqtt?.on('message', this._handleResponse.bind(this));
-      setInterval(this._clearExpireItem.bind(this), Client.TIMEOUT * 2);
+      setInterval(this._clearExpireItem.bind(this), this._timeout * 2);
     } catch (error) {
       throw error;
     }
