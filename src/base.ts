@@ -28,6 +28,15 @@ export default class BaseHttp extends EventEmitter {
   /* ---------------------------------- */
 
   protected _mqtt: MqttClient | undefined;
+  
+  /**
+   * Domain sign string 
+   * @default "@_mqtt_as_http_"
+   * @example 
+   * 'hello/[@_mqtt_as_http_]/req/balabala...'
+   * "@_mqtt_as_http_" is the domain sign string
+   */
+  protected _domain: string;
 
   /* ---------------------------------- */
   /*          Private functions         */
@@ -39,6 +48,7 @@ export default class BaseHttp extends EventEmitter {
    */
   constructor(mqtt: MqttClient) {
     super();
+    this._domain = "@_mqtt_as_http_"
     this._mqtt = mqtt;
   }
 
@@ -59,10 +69,9 @@ export default class BaseHttp extends EventEmitter {
   protected generateFullTopic( method: RequestMethods, rawTopic: string): [string, string, string]{
     const slash = endSlash(rawTopic)
     const id = fmid(8);
-    return [id, 
-            `${rawTopic}${slash}@_mqtt_as_http_/req/${method}/${id}`, 
-            `${rawTopic}${slash}@_mqtt_as_http_/res/${method}/${id}`
-          ]
+    const domain = this._domain
+    const topics = ['req','res'].map(m => `${rawTopic}${slash}${domain}/${m}/${method}/${id}`) as [string, string]
+    return [id, ...topics]
   }
 }
 
