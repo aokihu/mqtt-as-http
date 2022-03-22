@@ -8,7 +8,7 @@ const mqtt_client = forkMqtt();
 const mqtt_server = forkMqtt();
 
 const client = new Client(mqtt_client);
-const server = new Server(mqtt_server)
+const server = new Server(mqtt_server);
 
 /**
  * Test cases
@@ -25,8 +25,6 @@ describe('Mqtt GET method test', function() {
   
   /* Set server */
   this.beforeAll((done) => {
-    console.log('setup server')
-    
     let param = 0;
     server.get("hello", () => 'world')
     .get("hello/world", () => "peace")
@@ -37,8 +35,6 @@ describe('Mqtt GET method test', function() {
     .del("param", (topic, data) => {
       param = 0
     })
-
-    console.log('server ready...')
     done();
   }) 
 
