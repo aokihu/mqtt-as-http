@@ -10,7 +10,7 @@
 import { EventEmitter } from "events";
 import type { MqttClient } from "mqtt";
 import {MQTT_AS_HTTP_FULL_TOPIC_PARTTEN} from "./constant"
-import {fmid} from './utils'
+import {endSlash, fmid} from './utils'
 
 /**
  * Serve and client base class
@@ -57,9 +57,12 @@ export default class BaseHttp extends EventEmitter {
    * - responseTopic: Response full topic string
    */
   protected generateFullTopic( method: RequestMethods, rawTopic: string): [string, string, string]{
-    const slash = rawTopic.endsWith("/") ? "" : "/"
+    const slash = endSlash(rawTopic)
     const id = fmid(8);
-    return [id, `${rawTopic}${slash}@_mqtt_as_http_/req/${method}/${id}`, `${rawTopic}${slash}@_mqtt_as_http_/res/${method}/${id}`]
+    return [id, 
+            `${rawTopic}${slash}@_mqtt_as_http_/req/${method}/${id}`, 
+            `${rawTopic}${slash}@_mqtt_as_http_/res/${method}/${id}`
+          ]
   }
 }
 
