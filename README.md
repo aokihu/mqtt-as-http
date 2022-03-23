@@ -74,7 +74,7 @@ import { Server } from 'mqtt-as-http'
 /* ------------------------------- */
 
 // Create new mqtt instance object
-const mqtt = Mqtt.connec('mqtt://127.0.0.1');
+const mqtt = Mqtt.connect('mqtt://127.0.0.1');
 
 // Create server
 const server = new Server(mqtt);
@@ -121,7 +121,7 @@ import { Server } from 'mqtt-as-http'
 /* ------------------------------- */
 
 // Create new mqtt instance object
-const mqtt = Mqtt.connec('mqtt://127.0.0.1');
+const mqtt = Mqtt.connect('mqtt://127.0.0.1');
 
 // Create client
 const client = new Client(mqtt);
@@ -161,7 +161,7 @@ It's very easy to use it like HTTP, but you can't send binary data now, because 
 
 ## Methods
 
-### Server::constructor(mqtt)
+### Server::constructor(mqtt, [options])
 
     This is constructor method return server instance.
 
@@ -182,6 +182,46 @@ It's very easy to use it like HTTP, but you can't send binary data now, because 
 ### Client#del(topic:string) => Promise<response:{data}>
 
     All of methods above is same
+
+### Custom domain
+
+You can use `custom domain` to send or receive message, `custom domain` is gerneral string,
+but my suggestion is use `@` for first character.
+
+```javascript
+/* ------------------------------- */
+/*             Import              */
+/* ------------------------------- */
+
+/* Common JS */
+const Mqtt = require('mqtt') 
+const {Server} = require('mqtt-as-http');
+
+/* ES Module or Typescript */
+import { Server, Client } from 'mqtt-as-http'
+
+/* --- Create server and client --- */
+
+// Create new mqtt instance object
+const mqtt_server = Mqtt.connect('mqtt://127.0.0.1');
+// Create server
+const server = new Server(mqtt_server, {domain: '@my_custom_domain'});
+
+// Create new mqtt instance object
+const mqtt_client = Mqtt.connect('mqtt://127.0.0.1');
+// Create client
+const client = new Client(mqtt_client, {domain: '@my_custom_domain'});
+
+/* ------ Request listening ------ */
+server.get('hello', () => 'world')
+
+/* -------- Send request --------- */
+client.get('hello').then(response => {
+  const {data} = response
+  console.log(data) // 'world'
+})
+
+```
 
 ## Source
 
