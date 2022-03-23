@@ -65,11 +65,22 @@ export default class BaseHttp extends EventEmitter {
    */
   constructor(mqtt: MqttClient) {
     super();
+    console.log(Object.getOwnPropertyNames(mqtt))
     this._domain = '@_mqtt_as_http_'
     this._supportMethods = ['GET','POST','PUT','DELETE']
     this._qos = 0;
     this._mqtt = mqtt;
   }
+  
+
+  /* ---------------------------------- */
+  /*             Get and Set            */
+  /* ---------------------------------- */
+
+  /**
+   * @property domain
+   */
+  get domain() {return this._domain}
 
 
   /* ---------------------------------- */
