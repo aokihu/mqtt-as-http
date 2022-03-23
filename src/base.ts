@@ -63,13 +63,41 @@ export default class BaseHttp extends EventEmitter {
    * @constructor
    * @param mqtt MQTT client adapter object
    */
-  constructor(mqtt: MqttClient) {
+  constructor(...args: any[]) {
     super();
-    console.log(Object.getOwnPropertyNames(mqtt))
-    this._domain = '@_mqtt_as_http_'
-    this._supportMethods = ['GET','POST','PUT','DELETE']
-    this._qos = 0;
-    this._mqtt = mqtt;
+  
+    /* Default options */
+    let opts = {
+      domain :'@_mqtt_as_http_',
+      supportMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+      qos: 0
+    }
+
+    /**
+     * constructor(MqttClient, Options)
+     */
+    if(args.length === 2) {
+      const [_mqtt_, _opts_] = args
+      this._mqtt = _mqtt_ as MqttClient
+      opts = {...opts, ..._opts_}
+    }
+
+    if(args.length === 1) {
+      const [arg] = args;
+
+      if('mqtt' in arg) {
+        this._mqtt = arg['mqtt'];
+        const {mqtt, ..._opts_} = arg;
+        opts = {...opts, ..._opts_};
+      } else {
+        this._mqtt = arg as MqttClient
+      }
+    }
+
+    /* Set instance properties */
+    this._domain = opts.domain
+    this._supportMethods = opts.supportMethods
+    this._qos = opts.qos as MqttOptionQos
   }
   
 

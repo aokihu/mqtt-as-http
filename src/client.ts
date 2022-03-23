@@ -32,8 +32,8 @@ export default class Client extends BaseHttp {
    * @constructor
    * @param mqtt MQTT client adpater object
    */
-  constructor(mqtt:MqttClient) {
-    super(mqtt);
+  constructor(...args: any[]) {
+    super(...args);
     this._timeout = Client.TIMEOUT
 
     try {

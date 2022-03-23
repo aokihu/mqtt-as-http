@@ -15,7 +15,7 @@ const CUSTOM_DOMAIN = "@_custom_domain_"
 describe("Custom domain testcases", function(done) {
     this.timeout(5000);
 
-    const client = new Client(mqtt_client, {domain: CUSTOM_DOMAIN});
+    let client = new Client(mqtt_client, {domain: CUSTOM_DOMAIN});
     let server = new Server(mqtt_server, {domain: CUSTOM_DOMAIN});
     
     this.afterAll(function() {
@@ -29,6 +29,7 @@ describe("Custom domain testcases", function(done) {
             domain: CUSTOM_DOMAIN
         })
 
+
         assert.equal(server.domain, CUSTOM_DOMAIN)
         done()
     })
@@ -39,10 +40,10 @@ describe("Custom domain testcases", function(done) {
     })
 
     it("Client request 'hello'", (done) => {
-        client.get("hello", (response) => {
+       client.get('hello').then(response => {
             const {data} = response
-            assert.strictEqual(data, "world")
-        })
+            done()
+       })
     })
 })
   

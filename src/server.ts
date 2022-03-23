@@ -31,8 +31,8 @@ export default class Server extends BaseHttp {
    * @constructor
    * @param mqtt MQTT client adpater object
    */
-  constructor(mqtt: MqttClient) {
-    super(mqtt);
+  constructor(...args: any) {
+    super(...args);
     this._mqtt?.on("message", this._handleRequest.bind(this));
   }
 
@@ -102,7 +102,7 @@ export default class Server extends BaseHttp {
    */
   private _makeRequestedTopic(topic: string, method: RequestMethods): string {
     const slash = endSlash(topic);
-    return `${topic}${slash}${this._options.sign}/req/${method}/#`;
+    return `${topic}${slash}${this._domain}/req/${method}/#`;
   }
 
   /**
@@ -118,7 +118,7 @@ export default class Server extends BaseHttp {
     uuid: string
   ): string {
     const slash = endSlash(topic);
-    return `${topic}${slash}${this._options.sign}/res/${method}/${uuid}`;
+    return `${topic}${slash}${this._domain}/res/${method}/${uuid}`;
   }
 
   private _validate(payload: Buffer): any {
