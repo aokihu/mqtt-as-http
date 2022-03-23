@@ -1,5 +1,5 @@
 # mqtt-as-http
-**Version 2.0.4**
+**Version 2.1.1**
 
 ## Goal
 
@@ -230,6 +230,9 @@ For reduce the size of module, I only upload files which is needly. You can find
 And I would love to hear your improve suggestions.
 
 ## Change Log
+
+**2.1.0**
+- Custom domain support
 
 **2.0.4**
 - Update README.md
